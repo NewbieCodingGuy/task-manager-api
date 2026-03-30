@@ -15,17 +15,7 @@ const createProject = async (req, res) => {
       project,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Create Project error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -39,17 +29,7 @@ const getAllProjects = async (req, res) => {
       allProjects,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Fetching All Projects error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -64,17 +44,7 @@ const getProjectById = async (req, res) => {
       project,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Fetching Project error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -96,17 +66,7 @@ const updateProject = async (req, res) => {
       project,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Project updating error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -122,17 +82,7 @@ const deleteProject = async (req, res) => {
       project,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Project deleting error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -154,17 +104,7 @@ const addMember = async (req, res) => {
       member,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Member adding error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -185,17 +125,7 @@ const removeMember = async (req, res) => {
       member,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Member removing error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 

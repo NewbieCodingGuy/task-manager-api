@@ -21,17 +21,7 @@ const createTask = async (req, res) => {
       task,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Create Task error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -55,17 +45,7 @@ const getTasks = async (req, res) => {
       pagination: result.pagination,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("All Tasks fetching error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -82,17 +62,7 @@ const getTaskById = async (req, res) => {
       task,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Task fetching error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -118,17 +88,7 @@ const updateTask = async (req, res) => {
       updatedTask,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Task updating error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -145,17 +105,7 @@ const deleteTask = async (req, res) => {
       task,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Task deleting error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -178,17 +128,7 @@ const assignTask = async (req, res) => {
       task,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Task assigning error : ", err.message);
-
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+    next(err);
   }
 };
 

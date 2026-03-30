@@ -10,17 +10,7 @@ const register = async (req, res) => {
       user,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Register error : ", err.message);
-
-    return res.status(500).json({
-      error: "Internal server error",
-    });
+    next(err);
   }
 };
 
@@ -34,17 +24,7 @@ const login = async (req, res) => {
       token,
     });
   } catch (err) {
-    if (err.statusCode) {
-      return res.status(err.statusCode).json({
-        error: err.message,
-      });
-    }
-
-    console.error("Login error : ", err.message);
-
-    return res.status(500).json({
-      error: "Internal server error",
-    });
+    next(err);
   }
 };
 

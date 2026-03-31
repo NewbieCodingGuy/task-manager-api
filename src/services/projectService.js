@@ -1,23 +1,30 @@
 const pool = require("../config/db.js");
 
 const createProject = async (userId, title, description) => {
-  const [row] = await pool.execute(
-    "INSERT INTO projects (owner_id, title, description) VALUES (?, ?, ?)",
-    [userId, title, description],
-  );
+  const connection = await pool.getConnection();
 
-  if (!row.insertId) {
-    const error = new Error("Project creation failed");
-    error.statusCode = 500;
-    throw error;
+  try {
+    await connection.beginTransaction();
+
+    const [project] = await connection.execute(
+      "INSERT INTO projects (owner_id, title, description) VALUES(?,?,?)",
+      [userId, title, description],
+    );
+
+    await connection.execute(
+      "INSERT INTO project_members (user_id, project_id, role) VALUES(?,?,?)",
+      [userId, project.insertId, "owner"],
+    );
+
+    await connection.commit();
+
+    return { id: project.insertId, userId, title, description };
+  } catch (err) {
+    await connection.rollback();
+    throw err;
+  } finally {
+    connection.release();
   }
-
-  await pool.execute(
-    "INSERT INTO project_members (user_id, project_id, role) VALUES (?, ?, ?)",
-    [userId, row.insertId, "owner"],
-  );
-
-  return { id: row.insertId, userId, title, description };
 };
 
 const getAllProjects = async (userId) => {

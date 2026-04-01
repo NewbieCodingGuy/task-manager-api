@@ -1,4 +1,6 @@
 require("dotenv").config();
+const validateEnv = require("./src/config/validateEnv");
+validateEnv();
 
 const app = require("./src/app.js");
 

@@ -1,6 +1,6 @@
 const taskService = require("../services/taskService.js");
 
-const createTask = async (req, res) => {
+const createTask = async (req, res, next) => {
   try {
     const { userId } = req.user;
     const projectId = parseInt(req.params.projectId);
@@ -25,7 +25,7 @@ const createTask = async (req, res) => {
   }
 };
 
-const getTasks = async (req, res) => {
+const getTasks = async (req, res, next) => {
   try {
     const { userId } = req.user;
     const projectId = parseInt(req.params.projectId);
@@ -49,7 +49,7 @@ const getTasks = async (req, res) => {
   }
 };
 
-const getTaskById = async (req, res) => {
+const getTaskById = async (req, res, next) => {
   try {
     const { userId } = req.user;
     const projectId = parseInt(req.params.projectId);
@@ -66,7 +66,7 @@ const getTaskById = async (req, res) => {
   }
 };
 
-const updateTask = async (req, res) => {
+const updateTask = async (req, res, next) => {
   try {
     const { userId } = req.user;
     const projectId = parseInt(req.params.projectId);
@@ -92,7 +92,7 @@ const updateTask = async (req, res) => {
   }
 };
 
-const deleteTask = async (req, res) => {
+const deleteTask = async (req, res, next) => {
   try {
     const { userId } = req.user;
     const projectId = parseInt(req.params.projectId);
@@ -109,7 +109,7 @@ const deleteTask = async (req, res) => {
   }
 };
 
-const assignTask = async (req, res) => {
+const assignTask = async (req, res, next) => {
   try {
     const { userId } = req.user;
     const projectId = parseInt(req.params.projectId);

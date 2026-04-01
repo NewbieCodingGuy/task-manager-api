@@ -1,6 +1,6 @@
 const projectService = require("../services/projectService.js");
 
-const createProject = async (req, res) => {
+const createProject = async (req, res, next) => {
   try {
     const { title, description } = req.body;
     const { userId } = req.user;
@@ -19,7 +19,7 @@ const createProject = async (req, res) => {
   }
 };
 
-const getAllProjects = async (req, res) => {
+const getAllProjects = async (req, res, next) => {
   try {
     const { userId } = req.user;
     const allProjects = await projectService.getAllProjects(userId);
@@ -33,7 +33,7 @@ const getAllProjects = async (req, res) => {
   }
 };
 
-const getProjectById = async (req, res) => {
+const getProjectById = async (req, res, next) => {
   try {
     const projectId = req.params.id;
     const { userId } = req.user;
@@ -48,7 +48,7 @@ const getProjectById = async (req, res) => {
   }
 };
 
-const updateProject = async (req, res) => {
+const updateProject = async (req, res, next) => {
   try {
     const projectId = req.params.id;
     const { userId } = req.user;
@@ -70,7 +70,7 @@ const updateProject = async (req, res) => {
   }
 };
 
-const deleteProject = async (req, res) => {
+const deleteProject = async (req, res, next) => {
   try {
     const projectId = req.params.id;
     const { userId } = req.user;
@@ -86,7 +86,7 @@ const deleteProject = async (req, res) => {
   }
 };
 
-const addMember = async (req, res) => {
+const addMember = async (req, res, next) => {
   try {
     const projectId = req.params.id;
     const requestingUserId = req.user.userId;
@@ -108,7 +108,7 @@ const addMember = async (req, res) => {
   }
 };
 
-const removeMember = async (req, res) => {
+const removeMember = async (req, res, next) => {
   try {
     const projectId = req.params.id;
     const requestingUserId = req.user.userId;

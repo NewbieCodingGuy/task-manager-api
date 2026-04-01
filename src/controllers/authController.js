@@ -1,6 +1,6 @@
 const authService = require("../services/authService.js");
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
     const user = await authService.registerUser({ name, email, password });
@@ -14,7 +14,7 @@ const register = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const token = await authService.loginUser({ email, password });

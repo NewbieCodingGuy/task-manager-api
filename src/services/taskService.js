@@ -1,5 +1,6 @@
 const pool = require("../config/db.js");
 const emailQueue = require("../queues/emailQueue.js");
+const { getIO } = require("../socket/socket.service.js");
 
 //CREATE TASKS
 const createTask = async (
@@ -281,6 +282,15 @@ const assignTask = async (userId, projectId, taskId, assignedTo) => {
     "SELECT email FROM users WHERE id=?",
     [assignedTo],
   );
+
+  const io = getIO();
+  io.to(`user:${assignedTo}`).emit("notification", {
+    type: "TASK_ASSIGNED",
+    message: `You have been assigned a new task`,
+    taskId,
+    projectId,
+    timeStamp: new Date().toISOString(),
+  });
 
   await emailQueue.add(
     {

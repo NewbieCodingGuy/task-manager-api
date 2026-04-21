@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WebSocket Test</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h2>WebSocket Notification Test</h2>
+    <div id="status">Disconnected</div>
+    <div id="notifications"></div>
+
+    <script>
+      // Paste a valid JWT token for the user you want to test
+      const TOKEN =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImVtYWlsIjoidXNlcjJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzY3NTM5NjksImV4cCI6MTc3Njg0MDM2OX0.OFdJuCIhjhRLscpQ3njOXNoc6Y5NgJNJyInhi0xi_Qc";
+
+      const socket = io("http://localhost:3000", {
+        auth: { token: TOKEN },
+      });
+
+      socket.on("connect", () => {
+        document.getElementById("status").textContent = "✅ Connected";
+        console.log("Connected:", socket.id);
+      });
+
+      socket.on("notification", (data) => {
+        console.log("Notification received:", data);
+        const div = document.createElement("div");
+        div.textContent = `${data.timeStamp}: ${data.message} (Task ${data.taskId})`;
+        document.getElementById("notifications").appendChild(div);
+      });
+
+      socket.on("connect_error", (err) => {
+        document.getElementById("status").textContent =
+          `❌ Error: ${err.message}`;
+      });
+    </script>
+  </body>
+</html>
+
+
+
+<!-- WebSocket Notification Test
+✅ Connected
+2026-04-21T06:48:47.198Z: You have been assigned a new task (Task 7) -->
